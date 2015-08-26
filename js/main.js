@@ -1,10 +1,7 @@
 $(document).ready(function(){
-  $('form').css({'visibility' : 'hidden'});
+  $('form').hide();
   $('img.menu').click(function(){
-    $('form').toggle(
-      function(){$('form').css({'visibility' : 'hidden'});},
-      function(){$('form').css({'visibility' : 'visible'});}
-    );
+    $('form').toggle(250);
   });
   $('button').click(function(){
     var todo = $('input[name="todo"]').val();

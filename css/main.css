@@ -121,6 +121,9 @@ button{
   border: 1px solid lightgreen;
   font-size: .9em;
 }
+#the_clear_button {
+    margin-left: 10%;
+}
 
 ul {
   clear:both;

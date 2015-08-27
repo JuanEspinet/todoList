@@ -13,7 +13,8 @@ $(document).ready(function(){
     $('form').toggle(250);
   });
   // Add and style new items
-  $('button').click(addTodo); 
+  $('#the_button').click(addTodo); 
+  $('#the_clear_button').click(clearList);
   // Completed items animations/styling
   $('#theList').on('click', '.completeItem', removeTodo);
 });
@@ -79,3 +80,15 @@ function removeTodo(){
 };
 
 // Clear all items from list and local storage
+function clearList(){
+  if(confirm("Are you sure you want to clear your To Do list?")){
+    $('#theList li').each(function(){
+      $(this).addClass('complete').fadeOut(500,function(){
+        var itemID = $(this).attr('id');
+        $(this).remove();
+        localStorage.removeItem(itemID);
+      });
+    });
+  };
+  event.preventDefault();
+};

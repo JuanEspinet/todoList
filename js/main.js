@@ -15,12 +15,9 @@ $(document).ready(function(){
   // Add and style new items
   $('button').click(addTodo); 
   // Completed items animations/styling
-  $('#theList').on('click', '.completeItem', function(){
-    $(this).parent().addClass('complete').fadeOut(3000,function(){
-      $(this).remove();
-    });
-  });
+  $('#theList').on('click', '.completeItem', removeTodo);
 });
+
 // Read master key list for current key index
 function getKeyList(){
   if (!localStorage.getItem('keys')){
@@ -32,6 +29,7 @@ function getKeyList(){
     keys
   );  
 };
+
 // Add default list items to Local Storage
 function populateDefault(){
   var initialList = {
@@ -45,6 +43,7 @@ function populateDefault(){
     localStorage.setItem('keys', currentKey);
   });
 };
+
 // Add all items from local storage to the list
 function populateInitial(){
   for (i = 1; i <= currentKey; i++){
@@ -54,13 +53,14 @@ function populateInitial(){
       // Skip null items
       continue;
     };
-    $('#theList').prepend($('<li>').html('<input type="checkbox" class="completeItem">' + currentItem));
+    $('#theList').prepend($('<li>').html('<input type="checkbox" class="completeItem">' + currentItem).attr('id', itemName));
   };
 };
+
 // Add new item to the document and save that item to local storage
 function addTodo(){
   var todo = $('input[name="todo"]').val();
-  $newListItem = $('<li>').html('<input type="checkbox" class="completeItem">' + todo).addClass("highlight");
+  $newListItem = $('<li>').html('<input type="checkbox" class="completeItem">' + todo).addClass("highlight").attr('id', 'item' + currentKey);
   $('#theList').prepend($newListItem); 
   $newListItem.removeClass("highlight", 1000);
   currentKey += 1;
@@ -68,4 +68,14 @@ function addTodo(){
   localStorage.setItem('keys', currentKey);
   event.preventDefault();
 };
+
 // Remove item from the document and from local storage
+function removeTodo(){
+  $(this).parent().addClass('complete').fadeOut(500,function(){
+    var itemID = $(this).attr('id');
+    $(this).remove();
+    localStorage.removeItem(itemID);
+  });
+};
+
+// Clear all items from list and local storage

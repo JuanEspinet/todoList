@@ -64,8 +64,8 @@ function addTodo(){
   $newListItem = $('<li>').html('<input type="checkbox" class="completeItem">' + todo).addClass("highlight").attr('id', 'item' + currentKey);
   $('#theList').prepend($newListItem); 
   $newListItem.removeClass("highlight", 1000);
-  currentKey += 1;
   localStorage.setItem('item' + currentKey, todo);
+  currentKey += 1;
   localStorage.setItem('keys', currentKey);
   event.preventDefault();
 };
@@ -82,13 +82,7 @@ function removeTodo(){
 // Clear all items from list and local storage
 function clearList(){
   if(confirm("Are you sure you want to clear your To Do list?")){
-    $('#theList li').each(function(){
-      $(this).addClass('complete').fadeOut(500,function(){
-        var itemID = $(this).attr('id');
-        $(this).remove();
-        localStorage.removeItem(itemID);
-      });
-    });
+    $('.completeItem').each(removeTodo);
   };
   event.preventDefault();
 };
